@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaggageTransfer", "BaggageTransfer\BaggageTransfer.csproj", "{92C7C3CD-CD7B-44A2-A94D-B4E48C35D850}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaggageTransfer.Tests", "BaggageTransfer.Tests\BaggageTransfer.Tests.csproj", "{0CCEC54E-369F-4E1B-8F73-F122356517EF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92C7C3CD-CD7B-44A2-A94D-B4E48C35D850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92C7C3CD-CD7B-44A2-A94D-B4E48C35D850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92C7C3CD-CD7B-44A2-A94D-B4E48C35D850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92C7C3CD-CD7B-44A2-A94D-B4E48C35D850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CCEC54E-369F-4E1B-8F73-F122356517EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CCEC54E-369F-4E1B-8F73-F122356517EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CCEC54E-369F-4E1B-8F73-F122356517EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CCEC54E-369F-4E1B-8F73-F122356517EF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2D21C43C-FBDE-48AB-B05F-A32150AA1F86}
+	EndGlobalSection
+EndGlobal

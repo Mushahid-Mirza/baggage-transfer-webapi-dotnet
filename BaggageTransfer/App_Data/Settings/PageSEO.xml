@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pages>
+  <page id="Index">
+    <meta name="keywords" content="Xyz" />
+    <meta name="description" content="xyz" />
+    <meta name="title" content="{ONLY-SITENAME}" />
+  </page> 
+</pages>

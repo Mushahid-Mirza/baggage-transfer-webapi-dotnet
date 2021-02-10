@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<storages>
+  <storage name="Storage" path="~/Storage/" />
+  <storage name="Storage_Temp" path="~/Storage/Temp/" />
+  <storage name="Storage_Uploads" path="~/Storage/Uploads/" />
+  <storage name="Storage_Audio_Uploads" path="~/Storage/Uploads/Audios/" />
+  <storage name="Storage_Image_Uploads" path="~/Storage/Uploads/Images/" />
+  <storage name="Storage_Literature_Uploads" path="~/Storage/Uploads/Literatures/" />
+  <storage name="DefaultImages" path="~/Storage/Defaults/" /> 
+  <storage name="Storage_Logs" path="~/Storage/Logs/" />
+</storages>

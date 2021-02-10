@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<keys>
+  <!--__________________________________________________Settings File Section________________________________________________________________________________________-->
+  <key name="PageCacheFile" value="App_Data/Settings/PageCache.xml" />
+  <key name="ValidationSettingsFile" value="App_Data/Settings/ValidationSettings.xml" />
+  <key name="RemoteServersFile" value="App_Data/Settings/RemoteServers.xml" />
+  <key name="LanguagesFile" value="App_Data/Settings/Languages.xml" />
+  <key name="LocalStoragesFile" value="App_Data/Settings/LocalStorages.xml" />
+  <key name="SEOFile" value="App_Data/Settings/PageSEO.xml" />
+  <key name="ContentsFile" value="App_Data/Settings/Graphics.xml" />
+  <!--__________________________________________________________________________________________________________________________________________-->
+  <!--__________________________________________________Themes File Section________________________________________________________________________________________-->
+  <!--__________________________________________________________________________________________________________________________________________-->
+  <key name="AppDBContext" value="DefaultConnection" />
+  <key name="EventLogSourceName" value="OFrame" />
+  <key name="EnableQA" value="False" />
+  <key name="AppInstalled" value="True" />
+  <key name="MainTheme" value="Default" />
+  <key name="ZiceTheme" value="Zice" />
+  <key name="PopUpTheme" value="PopUp" />
+  <key name="CheckOutTheme" value="CheckOut" />
+  <key name="EnableOAuthRegistration" value="True" />
+  <key name="TargetTimeZoneID" value="India Standard Time" />
+  <key name="LoginPath" value="/Authentication/Login" />
+  <key name="TwoFactorAuthWaitTime" value="60" />
+  <key name="CookieExpireTimeSpan" value="365" />
+  <key name="CookieValidateInterval" value="0" />
+  <key name="CookieSlidingExpiration" value="true" />
+  <key name="AllowAlphaNumericUserNames" value="false" />
+  <key name="RequireUniqueEmail" value="true" />
+  <key name="PasswordRequiredLength" value="1" />
+  <key name="RequireDigit" value="false" />
+  <key name="RequireLowerCase" value="false" />
+  <key name="RequireNonLetterOrDigit" value="false" />
+  <key name="RequireUpperCase" value="false" />
+  <key name="UserLockoutEnabledByDefault" value="true" />
+  <key name="DefaultAccountLockoutTimeSpan" value="5" />
+  <key name="MaxFailedAccessAttemptsBeforeLockout" value="50" />
+  <key name="TokenLifeSpan" value="1" />
+  <!--__________________________________________________Performance Configuration Section________________________________________________________________________________________-->
+  <key name="PerformanceMode" value="Cache" />
+  <!--None, ApplicationState, Cache, MemoryCache, Redis, Session (do not use Session performance mode when application state is set to use SQL Server Session State Database)-->
+  <key name="MemoryCacheItemPriority" value="Default" />
+  <!--Default, NotRemovable-->
+  <key name="PerformanceTimeOutMinutes" value="1440" />
+  <key name="CookieTimeOutMinutes" value="1440" />
+  <key name="BundleVersion" value="1.0.1" />
+  <key name="EnableBundleOptimization" value="false" />
+  <!--______________________________________________Redis Configuration_____________________________________________________________________________________________________-->
+  <key name="RedisHost" value="" />
+  <key name="RedisIsSsl" value="true" />
+  <key name="RedisPassword" value="" />
+  <key name="ApplicationRedisAuthenticationKey" value="" />
+  <!--______________________________________________Payment Gateway Configuration_____________________________________________________________________________________________________-->
+  <key name="CCAvenueMerchantID" value="" />
+  <key name="CCAvenueAccessCode" value="" />
+  <key name="CCAvenueWorkingKey" value="" />
+  <key name="CCAvenueCurrencyCode" value="" />
+  <key name="CCAvenueLanguageCode" value="" />
+  <!--__________________________________________________SMS Server Configuration Section________________________________________________________________________________________-->
+  <key name="SMSServiceName" value="TWILIO" />
+  <!--TWILIO, ASPSMS, CUSTOM-->
+  <key name="SMSAccountIdentification" value="" />
+  <key name="SMSAccountPassword" value="" />
+  <key name="SMSAccountFrom" value="" />
+  <!--__________________________________________________Email Server Configuration Section________________________________________________________________________________________-->
+  <key name="EmailServiceName" value="SENDGRID" />
+  <!--SENDGRID, RELAY, SMTP-->
+  <key name="SendGridAPIKey" value="Exhhgulwss6aBhdCk5+40MAESFSM9ZaMZskQ/rxA+2azCUPXgrPMQEKIcPi+GQjpo5ldqa/j0SspMoGrMbn+dznfCrxJO8q7oSQOUZ4xtZI=" />
+  <key name="SendGridServer" value="" />
+  <key name="SendGridUsername" value="" />
+  <key name="SendGridPassword" value="" />
+  <key name="MailServer" value="" />
+  <key name="MailLogOnId" value="" />
+  <key name="MailLogOnPassword" value="" />
+  <key name="MailServerPort" value="25" />
+  <key name="EnableSsl" value="false" />
+  <key name="DisableBcc" value="false" />
+  <key name="DisableBypassListManagement" value="false" />
+  <key name="DisableClickTracking" value="false" />
+  <key name="DisableFooter" value="false" />
+  <key name="DisableGoogleAnalytics" value="false" />
+  <key name="DisableGravatar" value="false" />
+  <key name="DisableOpenTracking" value="false" />
+  <key name="DisableSpamCheck" value="false" />
+  <key name="DisableTemplate" value="false" />
+  <key name="DisableUnsubscribe" value="false" />
+  <key name="MailLabel" value="OFrame" />
+  <!--__________________________________________________Locale Configuration Section________________________________________________________________________________________-->
+  <key name="DefaultLocale" value="en-US" />
+  <key name="IsSiteMultiLingual" value="True" />
+  <!--__________________________________________________________________________________________________________________________________________-->
+  <key name="MaleAvatar" value="" />
+  <key name="UnspecifiedAvatar" value="" />
+  <key name="FemaleAvatar" value="" />
+  <key name="NoImage" value="" />
+  <key name="EmptyPanelImage" value="" />
+  <key name="LogoRelativeURL" value="~/favicon.png" />
+  <key name="HeaderTitle" value="" />
+  <key name="HeaderTagLine" value="" />
+  <!--__________________________________________________________________________________________________________________________________________-->
+  <key name="FacebookAPIKey" value="" />
+  <key name="FacebookSecretKey" value="" />
+  <key name="GoogleAPIKey" value="" />
+  <key name="GoogleSecretKey" value="" />
+  <key name="TwitterAPIKey" value="" />
+  <key name="TwitterSecretKey" value="" />
+  <key name="MicrosoftAPIKey" value="" />
+  <key name="MicrosoftSecretKey" value="" />
+  <!--__________________________________________________________________________________________________________________________________________-->
+  <key name="GoogleAnalyticsCode" value="" />
+  <key name="GoogleWebmasterTool" value="" />
+  <key name="BingWebmasterCenter" value="" />
+  <key name="PinterestSiteVerification" value="" />
+  <key name="TwitterWebsite" value="" />
+  <key name="YandexWebmaster" value="" />
+  <key name="MicrosoftApplicationInsightScript" value="" />
+  <key name="MAITelemetricKey" value="" />
+  <key name="DiscussCode" value="" />
+  <!--__________________________________________________________________________________________________________________________________________-->
+  <key name="Countries" value="Afghanistan;Albania;Algeria;American Samoa;Andorra;Angola;Anguilla;Antarctica;Antigua and Barbuda;Argentina;Armenia;Aruba;Australia;Austria;Azerbaijan;Bahamas;Bahrain;Bangladesh;Barbados;Belarus;Belgium;Belize;Benin;Bermuda;Bhutan;Bolivia;Bosnia and Herzegovina;Botswana;Bouvet Island;Brazil;British Indian Ocean Territory;Brunei Darussalam;Bulgaria;Burkina Faso;Burundi;Cambodia;Cameroon;Canada;Cape Verde;Cayman Islands;Central African Republic;Chad;Chile;China;Christmas Island;Cocos (Keeling) Islands;Colombia;Comoros;Congo;Congo, The Democratic Republic of The;Cook Islands;Costa Rica;Cote D'ivoire;Croatia;Cuba;Cyprus;Czech Republic;Denmark;Djibouti;Dominica;Dominican Republic;Ecuador;Egypt;El Salvador;Equatorial Guinea;Eritrea;Estonia;Ethiopia;Falkland Islands (Malvinas);Faroe Islands;Fiji;Finland;France;French Guiana;French Polynesia;French Southern Territories;Gabon;Gambia;Georgia;Germany;Ghana;Gibraltar;Greece;Greenland;Grenada;Guadeloupe;Guam;Guatemala;Guinea;Guinea-bissau;Guyana;Haiti;Heard Island and Mcdonald Islands;Holy See (Vatican City State);Honduras;Hong Kong;Hungary;Iceland;India;Indonesia;Iran, Islamic Republic of;Iraq;Ireland;Israel;Italy;Jamaica;Japan;Jordan;Kazakhstan;Kenya;Kiribati;Korea, Democratic People's Republic of;Korea, Republic of;Kuwait;Kyrgyzstan;Lao People's Democratic Republic;Latvia;Lebanon;Lesotho;Liberia;Libyan Arab Jamahiriya;Liechtenstein;Lithuania;Luxembourg;Macao;Macedonia, The Former Yugoslav Republic of;Madagascar;Malawi;Malaysia;Maldives;Mali;Malta;Marshall Islands;Martinique;Mauritania;Mauritius;Mayotte;Mexico;Micronesia, Federated States of;Moldova, Republic of;Monaco;Mongolia;Montenegro;Montserrat;Morocco;Mozambique;Myanmar;Namibia;Nauru;Nepal;Netherlands;Netherlands Antilles;New Caledonia;New Zealand;Nicaragua;Niger;Nigeria;Niue;Norfolk Island;Northern Mariana Islands;Norway;Oman;Pakistan;Palau;Palestinian Territory, Occupied;Panama;Papua New Guinea;Paraguay;Peru;Philippines;Pitcairn;Poland;Portugal;Puerto Rico;Qatar;Reunion;Romania;Russian Federation;Rwanda;Saint Helena;Saint Kitts and Nevis;Saint Lucia;Saint Pierre and Miquelon;Saint Vincent and The Grenadines;Samoa;San Marino;Sao Tome and Principe;Saudi Arabia;Senegal;Serbia;Seychelles;Sierra Leone;Singapore;Slovakia;Slovenia;Solomon Islands;Somalia;South Africa;South Georgia and The South Sandwich Islands;South Sudan;Spain;Sri Lanka;Sudan;Suriname;Svalbard and Jan Mayen;Swaziland;Sweden;Switzerland;Syrian Arab Republic;Taiwan, Republic of China;Tajikistan;Tanzania, United Republic of;Thailand;Timor-leste;Togo;Tokelau;Tonga;Trinidad and Tobago;Tunisia;Turkey;Turkmenistan;Turks and Caicos Islands;Tuvalu;Uganda;Ukraine;United Arab Emirates;United Kingdom;United States;United States Minor Outlying Islands;Uruguay;Uzbekistan;Vanuatu;Venezuela;Viet Nam;Virgin Islands, British;Virgin Islands, U.S.;Wallis and Futuna;Western Sahara;Yemen;Zambia;Zimbabwe;" />
+  <key name="FileEditorSearchPatterns" value="*.aspx;*.ascx;*.css;*.js;*.html;*.htm;*.Master;*.master;*.xml;*.config;*.cshtml;*.json;" />
+  <!--__________________________________________________Email Template Section________________________________________________________________________________________-->
+  <!--UNDER TEST OBSERVATION-->
+  <key name="MaxPlaceHoldersCount" value="20000" />
+  <key name="EmailTemplate1" value="UI/Templates/Email/EmailTemplate1.htm" />
+  <key name="EmailTemplate2" value="" />
+  <key name="EmailTemplate3" value="" />
+  <key name="EmailTemplate4" value="" />
+  <key name="EmailTemplate5" value="" />
+  <key name="EmailTemplate6" value="" />
+  <key name="EmailTemplate7" value="" />
+  <key name="EmailTemplate8" value="" />
+  <key name="EmailTemplate9" value="" />
+  <key name="EmailTemplate10" value="" />
+  <key name="ContactEmail" value="UI/Templates/Email/ContactEmail.htm" />
+  <!--UNDER TEST OBSERVATION-->
+  <!--__________________________________________________________________________________________________________________________________________-->
+  <key name="AboutUsPostID" value="-1" />
+  <key name="ContactUsPostID" value="-1" />
+  <key name="HomePagePostID" value="1" />
+  <key name="HomePageTopBlockPostID" value="-1" />
+  <key name="HomePageBottomBlockPostID" value="-1" />
+  <!--__________________________________________________________________________________________________________________________________________-->
+  <key name="SiteName" value="BaggageTransfer" />
+  <key name="SiteAdminName" value="Meeran Sada" />
+  <key name="WebsiteMainEmail" value="sadasauban123@gmail.com" />
+  <key name="WebsiteAdminEmail" value="meeransada@gmail.com" />
+  <key name="ErrorAdminEmail" value="sadasauban123@gmail.com" />
+</keys>
