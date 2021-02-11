@@ -76,6 +76,8 @@ namespace BaggageTransfer.AppCode.Helpers
                 var userInfo = user;
 
                 // Setting  
+
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, userInfo.Id));
                 claims.Add(new Claim(ClaimTypes.Name, userInfo.UserName));
                 claims.Add(new Claim(ClaimTypes.Role, "user"));
                 claims.Add(new Claim("LoggedOn", DateTime.Now.ToString())); 

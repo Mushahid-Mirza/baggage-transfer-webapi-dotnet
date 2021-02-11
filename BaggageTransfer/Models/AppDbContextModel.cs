@@ -35,6 +35,8 @@ namespace BaggageTransfer.Models
 
         public DbSet<BaggageRequest> BaggageRequests { get; set; }
 
-        public DbSet<RequestsPayment> RequestsPayments { get; set; } 
+        public DbSet<RequestsPayment> RequestsPayments { get; set; }
+         
+        public DbSet<UserEnquiry> UserEnquireis { get; set; }
     }
 }

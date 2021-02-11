@@ -16,5 +16,7 @@ namespace BaggageTransfer.Models.EntityModels
         public string PaymentType { get; set; }
 
         public string PaymentStatus { get; set; }
+
+        public decimal Amount { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,24 +10,20 @@ namespace BaggageTransfer.Models.EntityModels
     {
         public long Id { get; set; }
 
-        public string RequesterId { get; set; }
+        [ForeignKey("RequesterEnquiry")]
+        public long RequesterEnquiryId { get; set; }
+        public UserEnquiry RequesterEnquiry { get; set; }
 
-        public string MoverUserId { get; set; }
-
-        public string StartLocationName { get; set; }
-
-        public string StartGeoPosition { get; set; }
-
-        public string EndLocationName {get;set;}
-
-        public string EndGeoPosition { get; set; }
-
+        [ForeignKey("MoverEnquiry")]
+        public long MoverEnquiryrId { get; set; }
+        public UserEnquiry MoverEnquiry { get; set; }
+          
         public string ApproximateWeight { get; set; }
 
         public DateTime StartTime { get; set; }
 
         public DateTime EndTime { get; set; }
 
-        public decimal EstimatedCost { get; set; }
+        public decimal ApprovedCost { get; set; }
     }
 }

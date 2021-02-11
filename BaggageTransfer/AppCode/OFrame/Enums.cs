@@ -27,6 +27,12 @@
         Online = 4,
     }
 
+    public enum RequestType
+    {
+        Travel = 1,
+        Baggage = 2
+    }
+
     public enum PaymentFlow
     {
         Debit = 1,
