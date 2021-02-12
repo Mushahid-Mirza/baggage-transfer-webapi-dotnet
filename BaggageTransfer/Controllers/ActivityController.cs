@@ -30,11 +30,11 @@ namespace BaggageTransfer.Controllers
                 float endLat = model.Destination[0];
 
                 DateTime fiveHoursBefore = DateTime.Now;
-                fiveHoursBefore.AddHours(-5);
+                fiveHoursBefore = fiveHoursBefore.AddHours(-5);
 
 
                 DateTime fiveHoursAfter = DateTime.Now;
-                fiveHoursAfter.AddHours(5);
+                fiveHoursAfter = fiveHoursAfter.AddHours(5);
 
                 float startLon = model.Start[1];
                 float endLon = model.Destination[1];
@@ -49,23 +49,23 @@ namespace BaggageTransfer.Controllers
 
                     RequestType requestType = model.ReqquestType == "travel" ? RequestType.Travel : RequestType.Baggage;
 
-                    var filteredQuery = await context.UserEnquireis.Where(x => user.Id != x.UserId && x.RequestType == requestType &&
-                                                x.ActiveTill > fiveHoursBefore &&
+                    var filteredQuery = await context.UserEnquireis.Where(x => user.Id != x.UserId &&
+                                                x.ActiveTill > DateTime.Now &&
                                                 x.ActiveTill < fiveHoursAfter).ToListAsync();
 
                     var usersMatchingInOneKm = filteredQuery.Where(x => 
-                                                ((12742 * SqlFunctions.Asin(SqlFunctions.SquareRoot(SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.StartLat - startLat)) / 2) * SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.StartLat - startLat)) / 2) +
-                                                            SqlFunctions.Cos((SqlFunctions.Pi() / 180) * startLat) * SqlFunctions.Cos((SqlFunctions.Pi() / 180) * (x.StartLat)) *
-                                                                SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.StartLong - startLon)) / 2) * SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.StartLong - startLon)) / 2)))) <= 0.01)
+                                                ((12742 * Math.Asin(Math.Sqrt(Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) +
+                                                            Math.Cos((Math.PI / 180) * startLat) * Math.Cos((Math.PI / 180) * (x.StartLat)) *
+                                                                Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2)))) <= 0.01)
 
                                                   &&
-                                                ((12742 * SqlFunctions.Asin(SqlFunctions.SquareRoot(SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.EndLat - endLat)) / 2) * SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.EndLat - endLat)) / 2) +
-                                                            SqlFunctions.Cos((SqlFunctions.Pi() / 180) * endLat) * SqlFunctions.Cos((SqlFunctions.Pi() / 180) * (x.EndLat)) *
-                                                                SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.EndLong - endLon)) / 2) * SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.EndLong - endLon)) / 2)))) <= 0.01))
+                                                ((12742 * Math.Asin(Math.Sqrt(Math.Sin(((Math.PI / 180) * (x.EndLat - endLat)) / 2) * Math.Sin(((Math.PI / 180) * (x.EndLat - endLat)) / 2) +
+                                                            Math.Cos((Math.PI / 180) * endLat) * Math.Cos((Math.PI / 180) * (x.EndLat)) *
+                                                                Math.Sin(((Math.PI / 180) * (x.EndLong - endLon)) / 2) * Math.Sin(((Math.PI / 180) * (x.EndLong - endLon)) / 2)))) <= 0.01))
 
-                                                .OrderBy(x => ((12742 * SqlFunctions.Asin(SqlFunctions.SquareRoot(SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.StartLat - startLat)) / 2) * SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.StartLat - startLat)) / 2) +
-                                                            SqlFunctions.Cos((SqlFunctions.Pi() / 180) * startLat) * SqlFunctions.Cos((SqlFunctions.Pi() / 180) * (x.StartLat)) *
-                                                                SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.StartLong - startLon)) / 2) * SqlFunctions.Sin(((SqlFunctions.Pi() / 180) * (x.StartLong - startLon)) / 2))))));
+                                                .OrderBy(x => ((12742 * Math.Asin(Math.Sqrt(Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) +
+                                                            Math.Cos((Math.PI / 180) * startLat) * Math.Cos((Math.PI / 180) * (x.StartLat)) *
+                                                                Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2))))));
  
                     var list = usersMatchingInOneKm.ToList();
 
@@ -109,8 +109,8 @@ namespace BaggageTransfer.Controllers
                         return BadRequest();
                     }
                     DateTime date = DateTime.Now;
-                    date.AddHours(model.ActiveTillHours);
-                    date.AddMinutes(model.ActiveTillMinutes);
+                    date = date.AddHours(model.ActiveTillHours);
+                    date = date.AddMinutes(model.ActiveTillMinutes);
 
                     context.UserEnquireis.Add(new UserEnquiry()
                     {
