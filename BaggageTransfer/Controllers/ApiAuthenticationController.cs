@@ -81,7 +81,7 @@ namespace BaggageTransfer.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { FullName = model.FullName, PhoneNumber = model.PhoneNumber, UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -104,7 +104,7 @@ namespace BaggageTransfer.Controllers
         [Authorize]
         //[AllowAnonymous]
         [HttpGet]
-        [Route("getuser")]
+        [Route("get-user")]
         public IHttpActionResult GetUser()
         {
             var identity = (ClaimsIdentity)User.Identity;
@@ -124,6 +124,9 @@ namespace BaggageTransfer.Controllers
                     {
                         id = user.Id,
                         username = user.Email,
+                        fullname = user.FullName,
+                        address = user.Address,
+                        aadhar = user.AadharUrl,
                         role = "staff",
                     });
                 }

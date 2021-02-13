@@ -8,6 +8,12 @@ namespace BaggageTransfer.Factories
     public class ApplicationUser : IdentityUser
     {
         public string DeviceId { get; set; }
+         
+        public string FullName { get; set; }
+         
+        public string AadharUrl { get; set; }
+
+        public string Address { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
