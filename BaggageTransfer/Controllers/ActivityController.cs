@@ -1,4 +1,5 @@
-﻿using BaggageTransfer.Models;
+﻿using BaggageTransfer.Factories;
+using BaggageTransfer.Models;
 using BaggageTransfer.Models.EntityModels;
 using BaggageTransfer.Models.ViewModels.RequestVM;
 using BaggageTransfer.Util;
@@ -14,10 +15,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace BaggageTransfer.Controllers
 {
     [RoutePrefix("api/activities")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ActivityController : ApiController
     {
 
@@ -57,14 +60,14 @@ namespace BaggageTransfer.Controllers
                                                 x.ActiveTill < fiveHoursAfter).ToListAsync();
 
                     var usersMatchingInOneKm = filteredQuery.Where(x =>
-                                                ((12742 * Math.Asin(Math.Sqrt(Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) +
-                                                            Math.Cos((Math.PI / 180) * startLat) * Math.Cos((Math.PI / 180) * (x.StartLat)) *
-                                                                Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2)))) <= 0.01)
+                                                //((12742 * Math.Asin(Math.Sqrt(Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) +
+                                                //            Math.Cos((Math.PI / 180) * startLat) * Math.Cos((Math.PI / 180) * (x.StartLat)) *
+                                                //                Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2)))) <= 1)
 
-                                                  &&
+                                                //  &&
                                                 ((12742 * Math.Asin(Math.Sqrt(Math.Sin(((Math.PI / 180) * (x.EndLat - endLat)) / 2) * Math.Sin(((Math.PI / 180) * (x.EndLat - endLat)) / 2) +
                                                             Math.Cos((Math.PI / 180) * endLat) * Math.Cos((Math.PI / 180) * (x.EndLat)) *
-                                                                Math.Sin(((Math.PI / 180) * (x.EndLong - endLon)) / 2) * Math.Sin(((Math.PI / 180) * (x.EndLong - endLon)) / 2)))) <= 0.01))
+                                                                Math.Sin(((Math.PI / 180) * (x.EndLong - endLon)) / 2) * Math.Sin(((Math.PI / 180) * (x.EndLong - endLon)) / 2)))) <= 1))
 
                                                 .OrderBy(x => ((12742 * Math.Asin(Math.Sqrt(Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) +
                                                             Math.Cos((Math.PI / 180) * startLat) * Math.Cos((Math.PI / 180) * (x.StartLat)) *
@@ -122,8 +125,9 @@ namespace BaggageTransfer.Controllers
                 using (var context = new ApplicationDbContext())
                 {
                     var user = context.Users.Where(i => i.Email == userEmail).FirstOrDefault();
-                    user.AadharUrl = res.Url;
+                    user.AadharUrl = res.Name;
                     context.Users.Attach(user);
+                    context.Entry(user).State = EntityState.Modified;
                     await context.SaveChangesAsync();
                 }
 
@@ -176,6 +180,41 @@ namespace BaggageTransfer.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("save-user-details")]
+        public async Task<IHttpActionResult> SaveUserDetails([FromBody] SaveUserRequestVM request)
+        {
+            try
+            {
+                var res = new ReturnObject<dynamic>();
+
+                var userEmail = Request.GetOwinContext().Request.User.Identity.Name;
+
+                using (var context = new ApplicationDbContext())
+                {
+                    var user = await context.Users.Where(i => i.Email == userEmail).FirstOrDefaultAsync();
+                    user.PhoneNumber = request.PhoneNumber;
+                    user.FullName = request.FullName;
+                    user.Address = request.Address;
+                    user.DateOfBirth = request.DateOfBirth;
+                    user.PhoneNumber = request.PhoneNumber;
+
+                    context.Users.Attach(user);
+                    context.Entry(user).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
+
+                    res.IsSuccess = true;
+                    res.Message = "Saved Successfully";
+
+                    return Ok(res);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
 
         [HttpGet]
         [Route("get-user-details")]
@@ -200,7 +239,8 @@ namespace BaggageTransfer.Controllers
                             UserName = item.UserName,
                             PhoneNumber = item.PhoneNumber,
                             Address = item.Address,
-                            AadharUrl = item.AadharUrl
+                            AadharUrl = item.AadharUrl,
+                            DateOfBirth = item.DateOfBirth
                         }).FirstOrDefaultAsync();
 
 
@@ -209,10 +249,11 @@ namespace BaggageTransfer.Controllers
 
                     res.Data = user;
 
-                    return Ok(Json(res));
+                    return Ok(res);
 
                 }
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 return InternalServerError(ex);
             }
@@ -245,7 +286,8 @@ namespace BaggageTransfer.Controllers
                             .Include("MoverEnquiry").Include(i => i.MoverEnquiry.User)
                             .ToListAsync();
 
-                    res.Data = new {
+                    res.Data = new
+                    {
                         Bookings = userBookings,
                         userTravels = userTravels
                     };

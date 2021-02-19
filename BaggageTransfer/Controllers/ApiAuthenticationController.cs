@@ -13,10 +13,12 @@ using BaggageTransfer.Factories;
 using BaggageTransfer.Models;
 using System.Web;
 using Microsoft.Owin.Security;
+using System.Web.Http.Cors;
 
 namespace BaggageTransfer.Controllers
 {
     [RoutePrefix("api/auth")]
+    [EnableCors(origins: "http://localhost:4200", headers: "*", methods: "*")]
     public class ApiAuthenticationController : ApiController
     {
         private ApplicationSignInManager _signInManager;

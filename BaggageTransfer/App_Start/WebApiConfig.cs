@@ -32,6 +32,8 @@ namespace BaggageTransfer
             // Adding JSON type web api formatting.  
             config.Formatters.Clear();
             config.Formatters.Add(formatter);
+
+            config.EnableCors();
         }
     }
 }

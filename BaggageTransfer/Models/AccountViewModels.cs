@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace BaggageTransfer.Models
@@ -60,6 +61,29 @@ namespace BaggageTransfer.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+    }
+
+    public class SaveUserRequestVM
+    { 
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Full Name")]
+        public string FullName { get; set; }
+
+        [Required]
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+         
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        [Display(Name = "Date Of Birth")]
+        public DateTime DateOfBirth { get; set; }
+
+        [Display(Name = "Aadhar")]
+        public string Aadhar { get; set; }
     }
 
     public class RegisterViewModel
