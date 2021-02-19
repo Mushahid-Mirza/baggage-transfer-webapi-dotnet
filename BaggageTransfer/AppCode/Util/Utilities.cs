@@ -259,7 +259,7 @@ namespace BaggageTransfer.Util
             }
         }
 
-        public static FileUploadResult UploadFile(HttpPostedFileBase content, FileUploadSettings fs, string customExtensions = "")
+        public static FileUploadResult UploadFile(HttpPostedFile content, FileUploadSettings fs, string customExtensions = "")
         {
             var fr = new FileUploadResult
             {
@@ -300,6 +300,7 @@ namespace BaggageTransfer.Util
 
                             fr.IsSuccess = true;
                             fr.Result = relativePath;
+                            fr.Name = relativePath.Replace("~/", "");
                             fr.Message = fs.Messages.Success;
                         }
                         catch (Exception ex)

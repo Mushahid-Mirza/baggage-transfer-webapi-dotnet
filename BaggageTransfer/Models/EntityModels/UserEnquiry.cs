@@ -1,5 +1,7 @@
-﻿using System;
+﻿using BaggageTransfer.Factories;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -9,6 +11,9 @@ namespace BaggageTransfer.Models.EntityModels
     {
         public long Id { get; set; }
 
+        public ApplicationUser User {get;set;}
+
+        [ForeignKey("User")]
         public string UserId { get; set; }
 
         public float StartLat { get; set; }

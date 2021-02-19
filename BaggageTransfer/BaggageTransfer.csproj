@@ -101,6 +101,9 @@
     <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
     </Reference>
+    <Reference Include="MultipartDataMediaFormatter, Version=2.1.0.0, Culture=neutral, PublicKeyToken=67148dd0761d95a0, processorArchitecture=MSIL">
+      <HintPath>..\packages\MultipartDataMediaFormatter.V2.2.1.0\lib\net45\MultipartDataMediaFormatter.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=8.0.21.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.21\lib\net452\MySql.Data.dll</HintPath>
     </Reference>
@@ -428,11 +431,20 @@
     <Compile Include="Migrations\202102131332070_ChangingUserDetails.Designer.cs">
       <DependentUpon>202102131332070_ChangingUserDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202102191234420_AddingNotificationEntity.cs" />
+    <Compile Include="Migrations\202102191234420_AddingNotificationEntity.Designer.cs">
+      <DependentUpon>202102191234420_AddingNotificationEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202102191413238_AddingRelationBetweenUserAndUserEnquiry.cs" />
+    <Compile Include="Migrations\202102191413238_AddingRelationBetweenUserAndUserEnquiry.Designer.cs">
+      <DependentUpon>202102191413238_AddingRelationBetweenUserAndUserEnquiry.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppDbContextModel.cs" />
     <Compile Include="Models\EntityModels\BaggageRequest.cs" />
     <Compile Include="Models\EntityModels\FindUserRquestVM.cs" />
+    <Compile Include="Models\EntityModels\Notification.cs" />
     <Compile Include="Models\EntityModels\RequestsPayment.cs" />
     <Compile Include="Models\EntityModels\UserEnquiry.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -512,6 +524,13 @@
     <Folder Include="AppCode\DAL\" />
     <Folder Include="AppCode\Models\FilterModels\" />
     <Folder Include="Models\ViewModels\ResponseVM\" />
+    <Folder Include="Storage\Application\" />
+    <Folder Include="Storage\Defaults\" />
+    <Folder Include="Storage\Uploads\data\" />
+    <Folder Include="Storage\Uploads\Images\" />
+    <Folder Include="Storage\Uploads\Literatures\" />
+    <Folder Include="Storage\Uploads\logs\W3SVC1124\" />
+    <Folder Include="Storage\Uploads\Videos\Thumbnails\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -547,6 +566,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202102131332070_ChangingUserDetails.resx">
       <DependentUpon>202102131332070_ChangingUserDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102191234420_AddingNotificationEntity.resx">
+      <DependentUpon>202102191234420_AddingNotificationEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202102191413238_AddingRelationBetweenUserAndUserEnquiry.resx">
+      <DependentUpon>202102191413238_AddingRelationBetweenUserAndUserEnquiry.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

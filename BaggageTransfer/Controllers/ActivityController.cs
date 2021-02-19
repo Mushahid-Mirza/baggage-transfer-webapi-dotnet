@@ -1,15 +1,18 @@
 ﻿using BaggageTransfer.Models;
 using BaggageTransfer.Models.EntityModels;
 using BaggageTransfer.Models.ViewModels.RequestVM;
+using BaggageTransfer.Util;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.SqlServer;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace BaggageTransfer.Controllers
@@ -26,7 +29,7 @@ namespace BaggageTransfer.Controllers
             {
                 var responseObj = new ReturnObject<object>();
 
-                float startLat = model.Start[0]; 
+                float startLat = model.Start[0];
                 float endLat = model.Destination[0];
 
                 DateTime fiveHoursBefore = DateTime.Now;
@@ -53,7 +56,7 @@ namespace BaggageTransfer.Controllers
                                                 x.ActiveTill > DateTime.Now &&
                                                 x.ActiveTill < fiveHoursAfter).ToListAsync();
 
-                    var usersMatchingInOneKm = filteredQuery.Where(x => 
+                    var usersMatchingInOneKm = filteredQuery.Where(x =>
                                                 ((12742 * Math.Asin(Math.Sqrt(Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) +
                                                             Math.Cos((Math.PI / 180) * startLat) * Math.Cos((Math.PI / 180) * (x.StartLat)) *
                                                                 Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2)))) <= 0.01)
@@ -66,7 +69,7 @@ namespace BaggageTransfer.Controllers
                                                 .OrderBy(x => ((12742 * Math.Asin(Math.Sqrt(Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLat - startLat)) / 2) +
                                                             Math.Cos((Math.PI / 180) * startLat) * Math.Cos((Math.PI / 180) * (x.StartLat)) *
                                                                 Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2) * Math.Sin(((Math.PI / 180) * (x.StartLong - startLon)) / 2))))));
- 
+
                     var list = usersMatchingInOneKm.ToList();
 
                     responseObj.Data = list;
@@ -77,7 +80,7 @@ namespace BaggageTransfer.Controllers
                     {
                         var s = list.Count > 1 ? "s" : "";
 
-                        responseObj.Message = "You have " + list.Count + " user" + s + " nearby, click on the circled "  + icon + " icons in the map to requst them";
+                        responseObj.Message = "You have " + list.Count + " user" + s + " nearby, click on the circled " + icon + " icons in the map to requst them";
                     }
                     else
                     {
@@ -92,7 +95,43 @@ namespace BaggageTransfer.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("upload-aadhar")]
+        public async Task<IHttpActionResult> ProfileImagePostAsync()
+        {
+            System.Web.HttpFileCollection hfc = System.Web.HttpContext.Current.Request.Files;
 
+            var responseObj = new ReturnObject<string>();
+            string[] extensions = { ".jpg", ".jpeg", ".gif", ".bmp", ".png" };
+
+            var res = Utilities.UploadFile(hfc[0], new FileUploadSettings
+            {
+                FileType = FileType.Image,
+                MaxSize = 200,
+                StoragePath = "~/Storage/Uploads/Images/"
+            });
+
+            responseObj.IsSuccess = res.IsSuccess;
+            responseObj.Message = res.Message;
+
+            if (res.IsSuccess)
+            {
+
+                var userEmail = Request.GetOwinContext().Request.User.Identity.Name;
+
+                using (var context = new ApplicationDbContext())
+                {
+                    var user = context.Users.Where(i => i.Email == userEmail).FirstOrDefault();
+                    user.AadharUrl = res.Url;
+                    context.Users.Attach(user);
+                    await context.SaveChangesAsync();
+                }
+
+                return Ok(responseObj);
+            }
+
+            return Ok(responseObj);
+        }
 
         [Route("add-enquiry")]
         [HttpPost]
@@ -127,7 +166,7 @@ namespace BaggageTransfer.Controllers
                     responseObj.IsSuccess = true;
                     var s1 = model.ActiveTillHours > 1 ? "s" : "";
                     var s2 = model.ActiveTillMinutes > 1 ? "s" : "";
-                    responseObj.Message = "You'll be visible for nearby users for next " + model.ActiveTillHours  + " hour " + s1 + " and " + model.ActiveTillMinutes + " minute" + s2;
+                    responseObj.Message = "You'll be visible for nearby users for next " + model.ActiveTillHours + " hour " + s1 + " and " + model.ActiveTillMinutes + " minute" + s2;
                     return Ok(responseObj);
                 }
             }
@@ -136,5 +175,96 @@ namespace BaggageTransfer.Controllers
                 return InternalServerError(ex);
             }
         }
+
+
+        [HttpGet]
+        [Route("get-user-details")]
+        public async Task<IHttpActionResult> GetUserDetails()
+        {
+
+            try
+            {
+                var res = new ReturnObject<dynamic>();
+
+                var userEmail = Request.GetOwinContext().Request.User.Identity.Name;
+
+                using (var context = new ApplicationDbContext())
+                {
+                    var user = await context.Users.Where(i => i.Email == userEmail)
+                        .Select(item => new
+                        {
+                            FullName = item.FullName,
+                            UserEmail = item.UserName,
+                            Email = item.Email,
+                            UserId = item.Id,
+                            UserName = item.UserName,
+                            PhoneNumber = item.PhoneNumber,
+                            Address = item.Address,
+                            AadharUrl = item.AadharUrl
+                        }).FirstOrDefaultAsync();
+
+
+
+                    res.IsSuccess = true;
+
+                    res.Data = user;
+
+                    return Ok(Json(res));
+
+                }
+            } catch(Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("get-bookings")]
+        public async Task<IHttpActionResult> GetBookings()
+        {
+
+            try
+            {
+                var res = new ReturnObject<object>();
+
+                var userEmail = Request.GetOwinContext().Request.User.Identity.Name;
+
+                using (var context = new ApplicationDbContext())
+                {
+                    var user = await context.Users.Where(i => i.Email == userEmail).FirstOrDefaultAsync();
+
+                    var userBookings = await context.BaggageRequests
+                            .Where(i => i.RequesterEnquiry != null &&
+                                        i.RequesterEnquiry.UserId == user.Id)
+                            .Include("RequesterEnquiry").Include(i => i.RequesterEnquiry.User)
+                            .ToListAsync();
+
+                    var userTravels = await context.BaggageRequests
+                            .Where(i => i.MoverEnquiry != null &&
+                                        i.MoverEnquiry.UserId == user.Id)
+                            .Include("MoverEnquiry").Include(i => i.MoverEnquiry.User)
+                            .ToListAsync();
+
+                    res.Data = new {
+                        Bookings = userBookings,
+                        userTravels = userTravels
+                    };
+
+                    return Ok(res.Data);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+        //public async Task<IHttpActionResult> GetNotifications()
+        //{
+        //    using (var context = new ApplicationDbContext())
+        //    {
+        //        conte
+        //    }
+        //}
     }
 }

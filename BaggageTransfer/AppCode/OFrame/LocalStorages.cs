@@ -30,32 +30,6 @@ namespace BaggageTransfer
             }
         }
 
-        public static string Storage_Temp
-        {
-            get
-            {
-                return LocalStoragesHelper.GetStoragePath("Storage_Temp");
-            }
-
-            set
-            {
-                LocalStoragesHelper.SetStoragePath("Storage_Temp", value);
-            }
-        }
-
-        public static string Storage_Audio_Uploads
-        {
-            get
-            {
-                return LocalStoragesHelper.GetStoragePath("Storage_Audio_Uploads");
-            }
-
-            set
-            {
-                LocalStoragesHelper.SetStoragePath("Storage_Audio_Uploads", value);
-            }
-        }
-
         public static string Storage_Image_Uploads
         {
             get
@@ -69,18 +43,6 @@ namespace BaggageTransfer
             }
         }
 
-        public static string Storage_Literature_Uploads
-        {
-            get
-            {
-                return LocalStoragesHelper.GetStoragePath("Storage_Literature_Uploads");
-            }
-
-            set
-            {
-                LocalStoragesHelper.SetStoragePath("Storage_Literature_Uploads", value);
-            }
-        }
         public static string Storage_Uploads
         {
             get

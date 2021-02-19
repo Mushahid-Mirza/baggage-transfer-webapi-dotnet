@@ -20,6 +20,7 @@
         /// <summary>
         /// Path where to store the file on the server. Default to ~/Storage/
         /// </summary>
-        public string StoragePath { get; set; } = LocalStorages.Storage;
+        /// 
+        public string StoragePath { get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Microsoft.Owin.Security.OAuth;
+using MultipartDataMediaFormatter;
+using MultipartDataMediaFormatter.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;

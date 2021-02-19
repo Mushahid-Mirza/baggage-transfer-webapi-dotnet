@@ -88,6 +88,13 @@
         Fast,
     }
 
+    public enum NotificationType
+    {
+        Booking,
+        Welcome, 
+        Push,
+    }
+
     public enum EventSchedule
     {
         UpComing,
