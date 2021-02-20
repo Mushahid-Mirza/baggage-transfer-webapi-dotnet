@@ -24,6 +24,8 @@ namespace BaggageTransfer.Models.EntityModels
 
         public DateTime EndTime { get; set; }
 
-        public decimal ApprovedCost { get; set; }
+        public decimal ApprovedCost { get; set; } 
+
+        public BookingStatus BookingStatus { get; set; }
     }
 }

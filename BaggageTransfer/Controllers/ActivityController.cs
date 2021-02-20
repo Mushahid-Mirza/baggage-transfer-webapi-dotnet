@@ -96,6 +96,79 @@ namespace BaggageTransfer.Controllers
             {
                 return InternalServerError(ex);
             }
+
+        }
+
+        [HttpGet]
+        [Route("remove-current-enquiries")]
+        public async Task<IHttpActionResult> RemoveCurrentEnquiries()
+        {
+            var userEmail = Request.GetOwinContext().Request.User.Identity.Name;
+            try
+            {
+                var res = new ReturnObject<dynamic>();
+                using (var context = new ApplicationDbContext())
+                {
+                    var list = await context.UserEnquireis.Where(i => i.User.Email == userEmail
+                    && i.ActiveTill > DateTime.Now).ToListAsync();
+
+                    context.UserEnquireis.RemoveRange(list);
+
+                    await context.SaveChangesAsync();
+
+                    res.IsSuccess = true;
+
+                    return Ok(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+        
+        [HttpGet]
+        [Route("get-notifications")]
+        public async Task<IHttpActionResult> GetNotifications()
+        {
+            var userEmail = Request.GetOwinContext().Request.User.Identity.Name;
+            try
+            {
+                var res = new ReturnObject<dynamic>();
+                using (var context = new ApplicationDbContext())
+                {
+                    res.Data = await context.Notifications
+                        .Where(i => i.User.Email == userEmail).ToListAsync();
+                    res.IsSuccess = true;
+                    return Ok(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("get-enquiries")]
+        public async Task<IHttpActionResult> LoadEnquiries()
+        {
+            var userEmail = Request.GetOwinContext().Request.User.Identity.Name;
+            try
+            {
+                var res = new ReturnObject<dynamic>();
+                using (var context = new ApplicationDbContext())
+                {
+                    res.Data = await context.UserEnquireis.Where(i => i.User.Email == userEmail
+                    && i.ActiveTill > DateTime.Now).ToListAsync();
+                    res.IsSuccess = true;
+                    return Ok(res);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
 
         [HttpPost]
@@ -135,6 +208,52 @@ namespace BaggageTransfer.Controllers
             }
 
             return Ok(responseObj);
+        }
+
+        [Route("send-request")]
+        [HttpPost]
+        public async Task<IHttpActionResult> SendRequest([FromBody] AddRequestVM model)
+        {
+            var userEmail = Request.GetOwinContext().Request.User.Identity.Name;
+            using (var context = new ApplicationDbContext())
+            {
+                var enquiry = await context.UserEnquireis.Where(i => i.Id == model.EnquiryId).Include("User").FirstOrDefaultAsync();
+
+                var currentUser = context.Users.Where(i => i.Email == userEmail).FirstOrDefault();
+
+                var currentUserEnquiry = await context.UserEnquireis.Where(i => i.UserId == currentUser.Id
+                                    && i.ActiveTill > DateTime.Now).FirstOrDefaultAsync();
+
+                if (enquiry != null && currentUserEnquiry != null)
+                {
+                    var booking = new BaggageRequest()
+                    {
+                        ApprovedCost = model.Amount,
+                        MoverEnquiryrId = model.Type == RequestType.Baggage ? currentUserEnquiry.Id : enquiry.Id,
+                        RequesterEnquiryId = model.Type == RequestType.Travel ? currentUserEnquiry.Id : enquiry.Id,
+                        BookingStatus = BookingStatus.Waiting,
+                        StartTime = new DateTime(),
+                        EndTime = new DateTime(),
+                        ApproximateWeight = "0"
+                    };
+
+                    context.BaggageRequests.Add(booking);
+                    await context.SaveChangesAsync();
+
+                    var notificaiton = new Notification()
+                    {
+                        NotificationType = NotificationType.Booking,
+                        Message = "You have new " + (model.Type == RequestType.Baggage ? " travel" : " baggage") + "  Request, please find the details",
+                        NotificationId = booking.Id,
+                        UserId = enquiry.UserId
+                    };
+
+                    context.Notifications.Add(notificaiton);
+
+                    await context.SaveChangesAsync();
+                }
+                return Ok();
+            }
         }
 
         [Route("add-enquiry")]

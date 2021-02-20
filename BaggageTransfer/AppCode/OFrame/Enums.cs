@@ -19,6 +19,15 @@
         Cancelled,
     }
 
+    public enum BookingStatus
+    {
+        Confirmed = 1,
+        Canceled = 2,
+        Waiting = 3,
+        Progress = 4,
+        Closed = 5
+    }
+
     public enum PaymentMode
     {
         Cash = 1,
